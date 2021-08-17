@@ -2,7 +2,6 @@ import React from 'react';
 import { Drawer as MUIDrawer,
     ListItem,
     List,
-    ListItemIcon,
     ListItemText,
     Theme,
     useTheme,
@@ -22,6 +21,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import clsx from 'clsx';
 import { RouteComponentProps, withRouter, Switch, Route } from 'react-router-dom';
 import { useState } from 'react';
+import { DataTable } from '../../components';
 
 // Setting up drawer styling and methods to open/close
 const drawerWidth = 240;
@@ -85,7 +85,8 @@ const useStyles = makeStyles((theme:Theme) =>
             display: 'flex'
         },
         toolbar_button: {
-            marginLeft: 'auto'
+            marginLeft: 'auto',
+            color: 'white'
         }
     })
 );
@@ -140,12 +141,50 @@ export const Dashboard = withRouter((props: DashProps) =>{
                     color="inherit" 
                     aria-label="open drawer" 
                     onClick={handleDrawerOpen} 
-                    edge="start"
+                    edge="start" 
                     className={clsx(classes.menuButton, open && classes.hide)}>
                     <MenuIcon />
                     </IconButton>
+                    <Typography variant="h5" noWrap>
+                        Dashboard
+                    </Typography>
+                    <Button className={classes.toolbar_button}>Create New Drone</Button>
                 </Toolbar>
             </AppBar>
+            <MUIDrawer 
+                className={classes.drawer} 
+                variant='persistent' 
+                anchor='left' 
+                open={open} 
+                classes={{
+                    paper: classes.drawerPaper
+                }}>
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                        </IconButton>
+                    </div>
+                    <Divider />
+                    <List>
+                        {itemsList.map((item, index)=> {
+                            const { text, onClick } = item;
+                            return (
+                                <ListItem button key={text} onClick={onClick}>
+                                    <ListItemText primary={text} />
+                                </ListItem>
+                            )
+                        })}
+                    </List>
+            </MUIDrawer>
+            <main 
+            className={clsx(classes.content,{
+                [classes.contentShift]: open
+            })}>
+                <div className={classes.drawerHeader}/>
+                <DataTable />
+                
+            </main>
         </div>
     )
 })
+
