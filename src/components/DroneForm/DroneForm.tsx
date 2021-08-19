@@ -31,13 +31,15 @@ export const DroneForm = (props:DroneFormProps) =>{
         if(props.id!){
             server_calls.update(props.id, data)
             console.log(`Updated: ${data} ${props.id}`)
+            event.target.reset();
             window.location.reload()
-            event.target.reset()
+            
+            
         }else{
             dispatch(chooseName(data.name))
+            console.log(store.getState())
+            console.log(data)
             server_calls.create(store.getState())
-            window.location.reload()
-            event.target.reset()
         }
     }
     return (
@@ -52,8 +54,8 @@ export const DroneForm = (props:DroneFormProps) =>{
                     <Input {...register('price')} name="price" placeholder="Price"/>
                 </div>
                 <div>
-                    <label htmlFor="cam_quality">Camera Quality</label>
-                    <Input {...register('cam_quality')} name="cam_quality" placeholder="Camera Quality"/>
+                    <label htmlFor="camera_quality">Camera Quality</label>
+                    <Input {...register('camera_quality')} name="camera_quality" placeholder="Camera Quality"/>
                 </div>
                 <div>
                     <label htmlFor="flight_time">Flight Time</label>

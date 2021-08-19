@@ -4,14 +4,14 @@ const rootSlice = createSlice({
     name: 'root',
     initialState:{
         name: 'Nates Drone',
-        price: '$750',
+        price: '750',
         description: 'This is a basic drone',
         camera_quality: '8k HD',
         flight_time: '400 hours',
         max_speed: '150mph',
         dimensions:'255 x 312 127mm',
         weight: 'Approx 795g',
-        cost_of_prod: 450.00,
+        cost_of_prod: 450.59,
         series: 'DJI FPV Series'
     },
     reducers:{

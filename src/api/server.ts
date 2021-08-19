@@ -1,4 +1,4 @@
-let token = 'e9982b25f0147430867d479dd56f2e13ba17351c4f8c126e';
+let token = '6641ffeea1615673ce7f07ca781abedc47caecf1ddbf7c08';
 
 
 export const server_calls = {
@@ -10,16 +10,14 @@ export const server_calls = {
                 'x-access-token': `Bearer ${token}`
             }
         });
-        //Checking to make sure we got some data back...
         if (!response.ok){
-            throw new Error('Failed to fetch data from the server!')
+            throw new Error('Failed to fetch data from the server')
         }
-
         return await response.json()
-
     },
-    create: async (data:any = {}) => {
-        const response = await fetch('https://drone-inventory-new.herokuapp.com/api/drones',{
+
+    create: async(data:any = {}) => {
+        const response = await fetch('https://drone-inventory-new.herokuapp.com/api/drones', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -27,36 +25,34 @@ export const server_calls = {
             },
             body: JSON.stringify(data)
         });
-        if (!response.ok){
-            throw new Error('Failed to create a Drone in the Database!')
+        if(!response.ok){
+            throw new Error('Failed to post new data to the server')
         }
 
         return await response.json()
     },
-    update: async (id:string, data:any = {}) =>{
-        const response = await fetch(`https://drone-inventory-new.herokuapp.com/api/drones/${id}`,{
+
+    update: async (id: string, data: any = {}) => {
+        const response = await fetch(`https://drone-inventory-new.herokuapp.com/api/drones/${id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': `Bearer ${token}`
             },
-            body:JSON.stringify(data)
+            body: JSON.stringify(data)
         });
-        if (!response.ok){
-            throw new Error('Did not update Drone - please try again!')
+        if(!response.ok){
+            throw new Error('Failed to post new data to the server')
         }
     },
-    delete: async(id:string) =>{
-        const response = await fetch(`https://drone-inventory-new.herokuapp.com/api/drones/${id}`,{
+
+    delete: async (id: string) => {
+        const response = await fetch(`https://drone-inventory-new.herokuapp.com/api/drones/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'x-access-token': `Bearer ${token}`
             }
-        });
-        if (!response.ok){
-            throw new Error('Something went wrong here...')
-        }
+        })
     }
-
 }
